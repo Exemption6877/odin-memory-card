@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export default function App() {
   const [difficulty, setDifficulty] = useState(null);
+  const [images, setImages] = useState(null);
   const [counter, setCounter] = useState(0);
 
   function updateDifficulty(num) {
@@ -19,14 +20,14 @@ export default function App() {
       try {
         const result = await fetch(`https://pokeapi.co/api/v2/pokemon/1/`);
         const response = await result.json();
-        console.log(response.sprites.front_default);
+        setImages(response.sprites.front_default);
       } catch (err) {
         console.error("Failed API fetch : ", err);
       }
     };
 
     getPokemon();
-  });
+  }, []);
 
   return (
     <>
@@ -35,7 +36,7 @@ export default function App() {
       </div>
 
       <div className="card-table">
-        <Card />
+        <Card src={images ? images : ""} />
         <Card />
         <Card />
         <Card />

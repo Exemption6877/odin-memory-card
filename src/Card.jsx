@@ -1,4 +1,4 @@
-export default function Card(src) {
+export default function Card({ src }) {
   const fallback = "./no_image.svg";
   // do alt with api name
   return (
