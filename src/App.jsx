@@ -14,7 +14,6 @@ export default function App() {
 
   function updateDifficulty(num) {
     setDifficulty(num);
-    console.log(num);
   }
 
   function randomizer(max) {
@@ -40,7 +39,13 @@ export default function App() {
             `https://pokeapi.co/api/v2/pokemon/${number}/`
           );
           const response = await result.json();
-          newEntries.push(response.sprites.front_default);
+
+          newEntries.push({
+            id: response.id,
+            name: response.name,
+            sprite: response.sprites.front_default,
+          });
+          console.log(entries);
         } catch (err) {
           console.error("Failed API fetch : ", err);
         }
@@ -59,7 +64,7 @@ export default function App() {
 
       <div className="card-table">
         {entries.map((entry) => {
-          return <Card src={entry} />;
+          return <Card key={`pokemon-${entry.id}`} src={entry.sprite} name={entry.name}/>;
         })}
       </div>
     </>
