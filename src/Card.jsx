@@ -4,6 +4,7 @@ export default function Card({ src }) {
   return (
     <button className="card">
       <img src={src} alt="" />
+      <p>Pokemon Name</p>
     </button>
   );
 }

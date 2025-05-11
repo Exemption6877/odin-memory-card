@@ -7,10 +7,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 export default function App() {
-  const MAX_ENTRIES = 10;
   const [difficulty, setDifficulty] = useState(null);
   const [entries, setEntries] = useState([]);
   const [counter, setCounter] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   function updateDifficulty(num) {
     setDifficulty(num);
@@ -22,8 +22,10 @@ export default function App() {
   }
 
   useEffect(() => {
+    if (difficulty === null) return;
+
     const uniqueId = [];
-    while (uniqueId.length !== 10) {
+    while (uniqueId.length !== difficulty) {
       const randomNumber = randomizer(150);
       if (!uniqueId.includes(randomNumber)) {
         uniqueId.push(randomNumber);
@@ -47,7 +49,7 @@ export default function App() {
     };
 
     getPokemon();
-  }, []);
+  }, [difficulty]);
 
   return (
     <>
@@ -56,10 +58,9 @@ export default function App() {
       </div>
 
       <div className="card-table">
-        <Card src={entries ? entries[0] : ""} />
-        <Card src={entries ? entries[1] : ""} />
-        <Card src={entries ? entries[2] : ""} />
-        <Card src={entries ? entries[3] : ""} />
+        {entries.map((entry) => {
+          return <Card src={entry} />;
+        })}
       </div>
     </>
   );
