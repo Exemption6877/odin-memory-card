@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Cards from "./Cards";
 import "./Card.css";
 import "./App.css";
 import "./reset.css";
@@ -58,15 +58,8 @@ export default function App() {
 
   return (
     <>
-      <div className="title-area">
-        {!difficulty ? <Difficulty difficulty={updateDifficulty} /> : null}
-      </div>
-
-      <div className="card-table">
-        {entries.map((entry) => {
-          return <Card key={`pokemon-${entry.id}`} src={entry.sprite} name={entry.name}/>;
-        })}
-      </div>
+      {!difficulty ? <Difficulty difficulty={updateDifficulty} /> : null}{" "}
+      <Cards items={entries} />
     </>
   );
 }
