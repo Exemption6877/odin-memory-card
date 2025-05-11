@@ -1,9 +1,9 @@
-export default function Card(link) {
+export default function Card(src) {
   const fallback = "./no_image.svg";
   // do alt with api name
   return (
     <button className="card">
-      <img src={fallback} alt="" />
+      <img src={src} alt="" />
     </button>
   );
 }

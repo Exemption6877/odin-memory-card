@@ -1,10 +1,10 @@
-export default function Difficulty() {
+export default function Difficulty({ difficulty }) {
   return (
     <>
       <h1>Select Difficulty</h1>
-      <button value="6">Easy</button>
-      <button value="8">Medium</button>
-      <button value="10">Hard</button>
+      <button onClick={() => difficulty(6)}>Easy</button>
+      <button onClick={() => difficulty(8)}>Medium</button>
+      <button onClick={() => difficulty(10)}>Hard</button>
     </>
   );
 }
