@@ -1,15 +1,16 @@
 import Cards from "./Cards";
-import "./Card.css";
-import "./App.css";
-import "./reset.css";
 import Difficulty from "./Difficulty";
+import Loading from "./Loader";
 import { useEffect } from "react";
 import { useState } from "react";
+import "./Cards.css";
+import "./App.css";
+import "./reset.css";
 
 export default function App() {
   const [difficulty, setDifficulty] = useState(null);
   const [entries, setEntries] = useState([]);
-  const [counter, setCounter] = useState(0);
+  const [score, setScore] = useState({ score: 0, maxScore: 0 });
   const [isLoading, setIsLoading] = useState(false);
 
   function updateDifficulty(num) {
@@ -23,6 +24,7 @@ export default function App() {
   useEffect(() => {
     if (difficulty === null) return;
 
+    setIsLoading(true);
     const uniqueId = [];
     while (uniqueId.length !== difficulty) {
       const randomNumber = randomizer(150);
@@ -50,6 +52,7 @@ export default function App() {
         }
       }
       setEntries(newEntries);
+      setIsLoading(false);
     };
 
     getPokemon();
@@ -58,7 +61,8 @@ export default function App() {
   return (
     <>
       {!difficulty ? <Difficulty difficulty={updateDifficulty} /> : null}
-      <Cards items={entries} />
+
+      {isLoading ? <Loading /> : <Cards items={entries} />}
     </>
   );
 }
