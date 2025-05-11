@@ -1,6 +1,7 @@
 import Card from "./Card";
 import "./Card.css";
 import "./App.css";
+import "./reset.css";
 import Difficulty from "./Difficulty";
 import { useEffect } from "react";
 import { useState } from "react";
