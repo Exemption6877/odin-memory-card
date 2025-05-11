@@ -4,7 +4,7 @@ export default function Cards({ items }) {
       {items.map((item) => {
         return (
           <button key={item.id} className="card">
-            <img src={item.sprite} name={item.name} />
+            <img src={item.sprite} alt={item.name} />
             <p>{item.name.at(0).toUpperCase() + item.name.slice(1)}</p>
           </button>
         );

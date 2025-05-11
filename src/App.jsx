@@ -45,7 +45,6 @@ export default function App() {
             name: response.name,
             sprite: response.sprites.front_default,
           });
-          console.log(entries);
         } catch (err) {
           console.error("Failed API fetch : ", err);
         }
@@ -58,7 +57,7 @@ export default function App() {
 
   return (
     <>
-      {!difficulty ? <Difficulty difficulty={updateDifficulty} /> : null}{" "}
+      {!difficulty ? <Difficulty difficulty={updateDifficulty} /> : null}
       <Cards items={entries} />
     </>
   );
