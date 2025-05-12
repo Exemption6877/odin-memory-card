@@ -16,6 +16,7 @@ export default function App() {
 
   function updateDifficulty(num) {
     setDifficulty(num);
+    setGameScore({ score: 0, maxScore: 0 });
   }
 
   function randomizer(max) {
@@ -42,9 +43,8 @@ export default function App() {
     const shuffledEntries = shuffle(entries);
 
     if (entry.clicked === true) {
-      setGameScore({ score: 0, maxScore: gameScore.score });
+      setGameScore({ score: 0, maxScore: gameScore.maxScore });
       setEntries(shuffledEntries.map((item) => ({ ...item, clicked: false })));
-      setDifficulty(null);
     } else {
       setEntries(
         shuffledEntries.map((item) =>
@@ -101,21 +101,24 @@ export default function App() {
   }, [difficulty]);
 
   return (
-    <>
-      {!difficulty ? (
-        <Difficulty difficulty={updateDifficulty} />
-      ) : isLoading ? (
+    <div className="app-area">
+      <Difficulty
+        difficulty={updateDifficulty}
+        direction={difficulty ? "column" : "row"}
+      />
+
+      {isLoading ? (
         <Loading />
-      ) : (
-        <>
+      ) : difficulty ? (
+        <div className="main-content">
           <Score item={gameScore} />
           <Cards
             items={entries}
             click={buttonLogic}
             columns={`rows-${difficulty}`}
           />
-        </>
-      )}
-    </>
+        </div>
+      ) : null}
+    </div>
   );
 }

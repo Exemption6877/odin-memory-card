@@ -1,0 +1,66 @@
+.score {
+  display: flex;
+  background-color: aliceblue;
+  border-radius: 2ch;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.score > p {
+  text-align: center;
+}
+
+.difficulty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.difficulty > h1 {
+  color: white;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button-wrapper > button {
+  background-color: aliceblue;
+  border: none;
+  border-radius: 2ch;
+  width: 100px;
+}
+
+.button-wrapper > button:hover {
+  background-color: rgba(240, 248, 255, 0.5);
+}
+
+.app-area {
+  display: flex;
+  gap: 16px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.column {
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+}

@@ -1,9 +1,8 @@
 export default function Score({ item }) {
   return (
-    <>
-      <p>
-        Score: {item.score}. Max Score: {item.maxScore}
-      </p>
-    </>
+    <div className="score">
+      <p>Score: {item.score}</p>
+      <p>Max Score: {item.maxScore}</p>
+    </div>
   );
 }

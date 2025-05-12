@@ -5,5 +5,12 @@
 body {
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #103264;
+  height: 100vh;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
 }
