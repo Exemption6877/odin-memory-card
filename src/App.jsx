@@ -44,6 +44,7 @@ export default function App() {
     if (entry.clicked === true) {
       setGameScore({ score: 0, maxScore: gameScore.score });
       setEntries(shuffledEntries.map((item) => ({ ...item, clicked: false })));
+      setDifficulty(null);
     } else {
       setEntries(
         shuffledEntries.map((item) =>
@@ -108,7 +109,11 @@ export default function App() {
       ) : (
         <>
           <Score item={gameScore} />
-          <Cards items={entries} click={buttonLogic} />
+          <Cards
+            items={entries}
+            click={buttonLogic}
+            columns={`rows-${difficulty}`}
+          />
         </>
       )}
     </>

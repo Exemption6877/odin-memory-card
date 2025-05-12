@@ -1,6 +1,6 @@
-export default function Cards({ items, click }) {
+export default function Cards({ items, click, columns }) {
   return (
-    <div className="card-table">
+    <div className={`card-table ${columns}`}>
       {items.map((item) => {
         return (
           <button
