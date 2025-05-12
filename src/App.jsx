@@ -1,6 +1,7 @@
 import Cards from "./Cards";
 import Difficulty from "./Difficulty";
 import Loading from "./Loader";
+import Score from "./Score";
 import { useEffect } from "react";
 import { useState } from "react";
 import "./Cards.css";
@@ -11,7 +12,7 @@ export default function App() {
   const [difficulty, setDifficulty] = useState(null);
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [score, setScore] = useState({ score: 0, maxScore: 0 });
+  const [gameScore, setGameScore] = useState({ score: 0, maxScore: 0 });
 
   function updateDifficulty(num) {
     setDifficulty(num);
@@ -27,13 +28,24 @@ export default function App() {
     const entry = entries.find((entry) => entry.id === buttonValue);
 
     if (entry.clicked === true) {
-      console.log("Already clicked!");
+      setGameScore({ score: 0, maxScore: gameScore.score });
+
+      setEntries(entries.map((item) => ({ ...item, clicked: false })));
     } else {
       setEntries(
         entries.map((item) =>
           item.id === entry.id ? { ...item, clicked: true } : item
         )
       );
+      setGameScore((prevScore) => {
+        const newValue = prevScore.score + 1;
+
+        return {
+          score: newValue,
+          maxScore:
+            newValue > prevScore.maxScore ? newValue : prevScore.maxScore,
+        };
+      });
     }
   }
 
@@ -78,7 +90,14 @@ export default function App() {
   return (
     <>
       {!difficulty ? <Difficulty difficulty={updateDifficulty} /> : null}
-      {isLoading ? <Loading /> : <Cards items={entries} click={buttonLogic} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Score item={gameScore} />
+          <Cards items={entries} click={buttonLogic} />
+        </>
+      )}
     </>
   );
 }
