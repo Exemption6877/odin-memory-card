@@ -22,24 +22,36 @@ export default function App() {
     return Math.floor(Math.random() * max);
   }
 
+  function shuffle(entries) {
+    const prevEntries = [...entries];
+    const output = [];
+
+    while (prevEntries.length > 0) {
+      let randomIndex = randomizer(prevEntries.length);
+      let randomItem = prevEntries[randomIndex];
+      output.push(randomItem);
+      prevEntries.splice(randomIndex, 1);
+    }
+
+    return output;
+  }
+
   function buttonLogic(e) {
     const buttonValue = Number(e.currentTarget.value);
-
     const entry = entries.find((entry) => entry.id === buttonValue);
+    const shuffledEntries = shuffle(entries);
 
     if (entry.clicked === true) {
       setGameScore({ score: 0, maxScore: gameScore.score });
-
-      setEntries(entries.map((item) => ({ ...item, clicked: false })));
+      setEntries(shuffledEntries.map((item) => ({ ...item, clicked: false })));
     } else {
       setEntries(
-        entries.map((item) =>
+        shuffledEntries.map((item) =>
           item.id === entry.id ? { ...item, clicked: true } : item
         )
       );
       setGameScore((prevScore) => {
         const newValue = prevScore.score + 1;
-
         return {
           score: newValue,
           maxScore:
@@ -89,8 +101,9 @@ export default function App() {
 
   return (
     <>
-      {!difficulty ? <Difficulty difficulty={updateDifficulty} /> : null}
-      {isLoading ? (
+      {!difficulty ? (
+        <Difficulty difficulty={updateDifficulty} />
+      ) : isLoading ? (
         <Loading />
       ) : (
         <>
