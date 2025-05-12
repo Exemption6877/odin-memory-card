@@ -10,8 +10,8 @@ import "./reset.css";
 export default function App() {
   const [difficulty, setDifficulty] = useState(null);
   const [entries, setEntries] = useState([]);
-  const [score, setScore] = useState({ score: 0, maxScore: 0 });
   const [isLoading, setIsLoading] = useState(false);
+  const [score, setScore] = useState({ score: 0, maxScore: 0 });
 
   function updateDifficulty(num) {
     setDifficulty(num);
@@ -19,6 +19,22 @@ export default function App() {
 
   function randomizer(max) {
     return Math.floor(Math.random() * max);
+  }
+
+  function buttonLogic(e) {
+    const buttonValue = Number(e.currentTarget.value);
+
+    const entry = entries.find((entry) => entry.id === buttonValue);
+
+    if (entry.clicked === true) {
+      console.log("Already clicked!");
+    } else {
+      setEntries(
+        entries.map((item) =>
+          item.id === entry.id ? { ...item, clicked: true } : item
+        )
+      );
+    }
   }
 
   useEffect(() => {
@@ -46,6 +62,7 @@ export default function App() {
             id: response.id,
             name: response.name,
             sprite: response.sprites.front_default,
+            clicked: false,
           });
         } catch (err) {
           console.error("Failed API fetch : ", err);
@@ -61,8 +78,7 @@ export default function App() {
   return (
     <>
       {!difficulty ? <Difficulty difficulty={updateDifficulty} /> : null}
-
-      {isLoading ? <Loading /> : <Cards items={entries} />}
+      {isLoading ? <Loading /> : <Cards items={entries} click={buttonLogic} />}
     </>
   );
 }
